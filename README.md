@@ -1,5 +1,7 @@
 # 五音入弦
 
+Repository: `c-tra-music-game`
+
 一个非常轻量的中国传统音律网页音游原型。项目用纯 HTML、CSS、JavaScript 实现，不依赖构建工具或外部音频资源。
 
 ## 运行方式
