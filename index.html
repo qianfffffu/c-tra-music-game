@@ -3,88 +3,108 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>五音入弦 | 传统音律网页音游</title>
+    <title>五音入弦 | 中国传统音律网页音游</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="ink-wash" aria-hidden="true"></div>
-
     <main class="app">
-      <section class="hero panel">
-        <div class="hero-copy">
+      <section id="coverScreen" class="cover-screen">
+        <div class="mountain-layer far" aria-hidden="true"></div>
+        <div class="mountain-layer near" aria-hidden="true"></div>
+        <div class="mist mist-a" aria-hidden="true"></div>
+        <div class="mist mist-b" aria-hidden="true"></div>
+        <div class="mist mist-c" aria-hidden="true"></div>
+
+        <section class="choice-panel" aria-label="游戏封面选择">
           <p class="eyebrow">五音 · 古谱 · 轻音游</p>
           <h1>五音入弦</h1>
-          <p class="intro">
-            以宫、商、角、徵、羽为下落音符，用 A/S/D/F/G 击弦，按住 Shift 接住变奏。
-            选一件乐器，跟随传统名曲的意象完成一局清雅小曲。
+          <p class="cover-intro">
+            山巅风起，弦上云开。选择乐器与传统曲目，跟随宫、商、角、徵、羽落下的白色音符完成一场入弦演奏。
           </p>
-          <div class="hero-actions">
-            <button id="startBtn" class="primary-btn">开始演奏</button>
-            <button id="practiceBtn" class="ghost-btn">练习模式</button>
-          </div>
-        </div>
 
-        <div class="mentor-card" aria-label="大师姐形象">
-          <svg class="mentor" viewBox="0 0 320 480" role="img" aria-labelledby="mentorTitle mentorDesc">
-            <title id="mentorTitle">原创黑长直大师姐形象</title>
-            <desc id="mentorDesc">一位身着墨青长衣、长发垂落的国风引导师。</desc>
+          <div class="choice-block">
+            <div class="section-title">
+              <span>乐</span>
+              <h2>乐器选择</h2>
+            </div>
+            <div id="instrumentGrid" class="instrument-grid"></div>
+          </div>
+
+          <div class="choice-block">
+            <div class="section-title">
+              <span>谱</span>
+              <h2>选择乐曲</h2>
+            </div>
+            <div id="songList" class="song-list"></div>
+          </div>
+
+          <button id="startBtn" class="start-game-btn">开始游戏</button>
+          <p class="key-tip">键位：A 宫 / S 商 / D 角 / F 徵 / G 羽，按住 Shift 接变奏音。</p>
+        </section>
+
+        <section class="live-portrait" aria-label="黑长直大师姐高山抚琴封面">
+          <div class="moon" aria-hidden="true"></div>
+          <svg class="cover-mentor" viewBox="0 0 620 760" role="img" aria-labelledby="mentorTitle mentorDesc">
+            <title id="mentorTitle">原创黑长直大师姐高山抚琴封面</title>
+            <desc id="mentorDesc">一位黑长直国风女子在山巅抚琴，云雾环绕，发丝随风轻动。</desc>
             <defs>
-              <linearGradient id="robe" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#193730" />
-                <stop offset="1" stop-color="#071311" />
+              <linearGradient id="coverRobe" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#253d4a" />
+                <stop offset="0.52" stop-color="#13232d" />
+                <stop offset="1" stop-color="#090f15" />
               </linearGradient>
-              <linearGradient id="sash" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#c99f58" />
-                <stop offset="1" stop-color="#8f632e" />
+              <linearGradient id="coverSash" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#e8c77b" />
+                <stop offset="1" stop-color="#9a6934" />
               </linearGradient>
+              <filter id="softGlow">
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
             </defs>
-            <path class="hair-back" d="M111 78c-43 52-50 147-45 262 3 59 20 92 20 92 29-58 52-109 59-191l30 192c38-80 62-173 45-281-10-63-43-93-109-74Z" />
-            <path class="robe" d="M108 206c-40 72-68 153-79 238h258c-12-88-40-170-80-239-27 21-72 21-99 1Z" />
-            <path class="sleeve left" d="M111 225C79 264 55 309 39 360c35-3 67-19 92-46Z" />
-            <path class="sleeve right" d="M207 225c35 38 60 83 75 135-38-2-71-19-96-48Z" />
-            <path class="neck" d="M143 177h34l5 32c-17 13-35 13-53 0Z" />
-            <ellipse class="face" cx="160" cy="137" rx="56" ry="68" />
-            <path class="hair-front" d="M99 122c7-55 36-84 72-82 47 3 78 38 65 105-23-14-48-43-55-64-14 25-45 42-82 41Z" />
-            <path class="bang" d="M142 70c-10 28-20 49-46 65 10-44 25-65 46-65Z" />
-            <path class="eye" d="M132 139c10-6 20-6 29 0" />
-            <path class="eye" d="M173 139c10-6 20-6 29 0" />
-            <path class="mouth" d="M148 168c8 6 17 6 25 0" />
-            <path class="sash" d="M96 304c40 19 86 20 129 0l8 31c-46 28-103 28-147 0Z" />
-            <path class="qin" d="M76 338c52-24 128-33 196-27 7 1 11 10 5 15-53 47-135 58-212 31-7-3-6-15 11-19Z" />
-            <path class="qin-line" d="M91 346c54-16 109-23 171-20" />
-            <path class="qin-line" d="M98 357c47-11 96-16 149-14" />
-            <circle class="pin" cx="159" cy="105" r="5" />
-            <path class="hairpin" d="M112 91c37-21 78-25 121-10" />
+
+            <path class="wind-ribbon ribbon-a" d="M63 286C171 238 267 260 358 305c71 35 137 40 197 3" />
+            <path class="wind-ribbon ribbon-b" d="M27 451c112-38 229-25 331 31 67 37 141 40 223 2" />
+
+            <path class="rock" d="M55 661c68-64 142-91 224-86 67 4 100 36 168 27 42-5 77 8 113 59Z" />
+            <path class="robe-train" d="M231 325c-78 92-124 191-147 332h417c-32-153-80-253-150-333-38 32-82 32-120 1Z" />
+            <path class="sleeve-left" d="M234 372C164 414 111 467 73 531c70 13 130-7 181-65Z" />
+            <path class="sleeve-right" d="M349 372c71 38 125 90 164 156-75 16-139-7-193-67Z" />
+
+            <path class="hair-back" d="M208 133c-75 75-89 198-82 348 4 85 30 158 30 158 45-93 78-178 92-294l35 302c56-127 91-282 61-432-15-72-58-105-136-82Z" />
+            <path class="hair-strand strand-a" d="M219 138c-39 86-48 193-34 326" />
+            <path class="hair-strand strand-b" d="M255 121c-17 113 0 233 32 348" />
+            <path class="hair-strand strand-c" d="M299 135c32 92 40 203 10 338" />
+
+            <path class="neck" d="M266 276h58l8 47c-29 20-60 20-90 0Z" />
+            <ellipse class="face" cx="296" cy="214" rx="82" ry="101" />
+            <path class="hair-front" d="M204 200c10-89 57-136 115-132 72 5 120 62 99 164-37-23-77-69-88-103-22 40-72 68-126 71Z" />
+            <path class="bang" d="M268 103c-19 48-43 85-82 111 16-70 42-106 82-111Z" />
+            <path class="eye" d="M250 218c17-10 34-10 50 0" />
+            <path class="eye" d="M314 218c17-10 34-10 50 0" />
+            <path class="mouth" d="M276 263c16 10 33 10 49 0" />
+            <path class="sash" d="M190 488c64 32 141 34 212 0l14 45c-77 43-167 43-240 0Z" />
+
+            <path class="qin-body" d="M119 548c109-51 274-69 416-49 18 3 24 25 9 38-112 93-286 110-448 47-20-8-10-27 23-36Z" />
+            <path class="qin-line" d="M142 565c113-31 229-42 360-33" />
+            <path class="qin-line" d="M156 585c99-22 204-30 318-22" />
+            <path class="hand left-hand" d="M226 522c20-16 45-19 71-8" />
+            <path class="hand right-hand" d="M356 516c28-10 56-6 84 11" />
           </svg>
           <div class="mentor-caption">
             <span>大师姐提示</span>
-            <strong id="mentorTip">先听风，再落指。</strong>
+            <strong id="mentorTip">风声入拍，指尖落弦。</strong>
           </div>
-        </div>
+        </section>
       </section>
 
-      <section class="controls panel">
-        <div class="control-block">
-          <div class="section-title">
-            <span>一</span>
-            <h2>选择乐器</h2>
-          </div>
-          <div id="instrumentGrid" class="instrument-grid"></div>
-        </div>
-
-        <div class="control-block">
-          <div class="section-title">
-            <span>二</span>
-            <h2>选择传统曲目</h2>
-          </div>
-          <div id="songList" class="song-list"></div>
-        </div>
-      </section>
-
-      <section class="stage-wrap panel">
+      <section id="stageScreen" class="stage-screen">
         <div class="stage-head">
           <div>
-            <p class="eyebrow">当前谱面</p>
+            <p class="eyebrow">正在演奏</p>
             <h2 id="currentSongTitle">高山流水</h2>
             <p id="currentSongMeta">古琴传统名曲 · 入门</p>
           </div>
@@ -114,13 +134,13 @@
           <span><kbd>D</kbd> 角</span>
           <span><kbd>F</kbd> 徵</span>
           <span><kbd>G</kbd> 羽</span>
-          <span><kbd>Shift</kbd> 变奏音</span>
+          <span><kbd>Shift</kbd> 变奏</span>
         </div>
       </section>
 
-      <section class="library panel">
+      <section class="library">
         <div class="section-title">
-          <span>三</span>
+          <span>源</span>
           <h2>曲库整理依据</h2>
         </div>
         <p>

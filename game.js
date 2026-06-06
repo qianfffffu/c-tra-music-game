@@ -167,6 +167,8 @@ const els = {
   sourceList: document.querySelector("#sourceList"),
   startBtn: document.querySelector("#startBtn"),
   practiceBtn: document.querySelector("#practiceBtn"),
+  coverScreen: document.querySelector("#coverScreen"),
+  stageScreen: document.querySelector("#stageScreen"),
   notesLayer: document.querySelector("#notesLayer"),
   gameStage: document.querySelector("#gameStage"),
   judgement: document.querySelector("#judgement"),
@@ -338,6 +340,8 @@ function startGame(practice = false) {
   state.total = state.notes.length;
   els.startBtn.textContent = "重新开始";
   judge(practice ? "练习起手" : "开弦", practice ? "慢一点，听每个字落下。" : "心定，手就稳。");
+  document.body.classList.add("is-playing");
+  els.stageScreen?.scrollIntoView({ behavior: "smooth", block: "start" });
   renderStats();
   loop();
 }
@@ -440,7 +444,7 @@ function bindEvents() {
   });
 
   els.startBtn.addEventListener("click", () => startGame(false));
-  els.practiceBtn.addEventListener("click", () => startGame(true));
+  els.practiceBtn?.addEventListener("click", () => startGame(true));
 
   window.addEventListener("keydown", (event) => {
     const key = String(event.key || "").toLowerCase();

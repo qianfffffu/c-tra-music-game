@@ -4,15 +4,21 @@ Repository: `c-tra-music-game`
 
 一个非常轻量的中国传统音律网页音游原型。项目用纯 HTML、CSS、JavaScript 实现，不依赖构建工具或外部音频资源。
 
-## 运行方式
+## 直接游玩
 
-直接打开 `index.html` 即可运行。也可以用任意静态服务启动：
+GitHub Pages 发布后，直接访问：
+
+https://qianfffffu.github.io/c-tra-music-game/
+
+如果页面暂时 404，请在仓库 `Settings` -> `Pages` 中把 `Deploy from a branch` 设置为 `main` / `/root`，等待 GitHub Pages 部署完成。
+
+## 本地开发
+
+双击 `index.html` 可预览。若浏览器限制本地音频上下文，可用任意静态服务启动后访问：
 
 ```bash
 python3 -m http.server 4173
 ```
-
-然后访问 `http://localhost:4173`。
 
 ## 玩法
 
@@ -34,4 +40,4 @@ python3 -m http.server 4173
 
 ## 视觉方向
 
-整体采用简洁典雅的米纸、墨绿、朱印、鎏金配色。页面中的“黑长直大师姐”是原创国风引导师形象，用内联 SVG 绘制，不使用第三方角色图或商业素材。
+首屏是 2D-live 风格封面页：右侧为原创黑长直大师姐在高山云雾中抚琴，发丝、云雾和风带通过 CSS/SVG 动画实现；左侧完成乐器选择、乐曲选择和开始游戏。进入游戏后切换为暗色调弹奏界面，白色发光五音字符下落。
