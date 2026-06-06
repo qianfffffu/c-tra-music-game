@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>五音入弦 | 传统音律网页音游</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ink-wash" aria-hidden="true"></div>
+
+    <main class="app">
+      <section class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">五音 · 古谱 · 轻音游</p>
+          <h1>五音入弦</h1>
+          <p class="intro">
+            以宫、商、角、徵、羽为下落音符，用 A/S/D/F/G 击弦，按住 Shift 接住变奏。
+            选一件乐器，跟随传统名曲的意象完成一局清雅小曲。
+          </p>
+          <div class="hero-actions">
+            <button id="startBtn" class="primary-btn">开始演奏</button>
+            <button id="practiceBtn" class="ghost-btn">练习模式</button>
+          </div>
+        </div>
+
+        <div class="mentor-card" aria-label="大师姐形象">
+          <svg class="mentor" viewBox="0 0 320 480" role="img" aria-labelledby="mentorTitle mentorDesc">
+            <title id="mentorTitle">原创黑长直大师姐形象</title>
+            <desc id="mentorDesc">一位身着墨青长衣、长发垂落的国风引导师。</desc>
+            <defs>
+              <linearGradient id="robe" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#193730" />
+                <stop offset="1" stop-color="#071311" />
+              </linearGradient>
+              <linearGradient id="sash" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#c99f58" />
+                <stop offset="1" stop-color="#8f632e" />
+              </linearGradient>
+            </defs>
+            <path class="hair-back" d="M111 78c-43 52-50 147-45 262 3 59 20 92 20 92 29-58 52-109 59-191l30 192c38-80 62-173 45-281-10-63-43-93-109-74Z" />
+            <path class="robe" d="M108 206c-40 72-68 153-79 238h258c-12-88-40-170-80-239-27 21-72 21-99 1Z" />
+            <path class="sleeve left" d="M111 225C79 264 55 309 39 360c35-3 67-19 92-46Z" />
+            <path class="sleeve right" d="M207 225c35 38 60 83 75 135-38-2-71-19-96-48Z" />
+            <path class="neck" d="M143 177h34l5 32c-17 13-35 13-53 0Z" />
+            <ellipse class="face" cx="160" cy="137" rx="56" ry="68" />
+            <path class="hair-front" d="M99 122c7-55 36-84 72-82 47 3 78 38 65 105-23-14-48-43-55-64-14 25-45 42-82 41Z" />
+            <path class="bang" d="M142 70c-10 28-20 49-46 65 10-44 25-65 46-65Z" />
+            <path class="eye" d="M132 139c10-6 20-6 29 0" />
+            <path class="eye" d="M173 139c10-6 20-6 29 0" />
+            <path class="mouth" d="M148 168c8 6 17 6 25 0" />
+            <path class="sash" d="M96 304c40 19 86 20 129 0l8 31c-46 28-103 28-147 0Z" />
+            <path class="qin" d="M76 338c52-24 128-33 196-27 7 1 11 10 5 15-53 47-135 58-212 31-7-3-6-15 11-19Z" />
+            <path class="qin-line" d="M91 346c54-16 109-23 171-20" />
+            <path class="qin-line" d="M98 357c47-11 96-16 149-14" />
+            <circle class="pin" cx="159" cy="105" r="5" />
+            <path class="hairpin" d="M112 91c37-21 78-25 121-10" />
+          </svg>
+          <div class="mentor-caption">
+            <span>大师姐提示</span>
+            <strong id="mentorTip">先听风，再落指。</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls panel">
+        <div class="control-block">
+          <div class="section-title">
+            <span>一</span>
+            <h2>选择乐器</h2>
+          </div>
+          <div id="instrumentGrid" class="instrument-grid"></div>
+        </div>
+
+        <div class="control-block">
+          <div class="section-title">
+            <span>二</span>
+            <h2>选择传统曲目</h2>
+          </div>
+          <div id="songList" class="song-list"></div>
+        </div>
+      </section>
+
+      <section class="stage-wrap panel">
+        <div class="stage-head">
+          <div>
+            <p class="eyebrow">当前谱面</p>
+            <h2 id="currentSongTitle">高山流水</h2>
+            <p id="currentSongMeta">古琴传统名曲 · 入门</p>
+          </div>
+          <div class="score-board">
+            <div><span>分数</span><strong id="scoreValue">0</strong></div>
+            <div><span>连击</span><strong id="comboValue">0</strong></div>
+            <div><span>准度</span><strong id="accuracyValue">100%</strong></div>
+          </div>
+        </div>
+
+        <div id="gameStage" class="game-stage" aria-label="五音下落游戏区域">
+          <div class="lane-grid" aria-hidden="true">
+            <div>宫 <b>A</b></div>
+            <div>商 <b>S</b></div>
+            <div>角 <b>D</b></div>
+            <div>徵 <b>F</b></div>
+            <div>羽 <b>G</b></div>
+          </div>
+          <div id="notesLayer" class="notes-layer"></div>
+          <div class="hit-line" aria-hidden="true"></div>
+          <div id="judgement" class="judgement">静候入拍</div>
+        </div>
+
+        <div class="keyboard-help">
+          <span><kbd>A</kbd> 宫</span>
+          <span><kbd>S</kbd> 商</span>
+          <span><kbd>D</kbd> 角</span>
+          <span><kbd>F</kbd> 徵</span>
+          <span><kbd>G</kbd> 羽</span>
+          <span><kbd>Shift</kbd> 变奏音</span>
+        </div>
+      </section>
+
+      <section class="library panel">
+        <div class="section-title">
+          <span>三</span>
+          <h2>曲库整理依据</h2>
+        </div>
+        <p>
+          初版曲库优先收录传统榜单中反复出现、近年平台传播度和大众识别度较高的古琴名曲。
+          当前谱面是面向游戏节奏的五声音阶整理，并非完整演奏谱。
+        </p>
+        <div id="sourceList" class="source-list"></div>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
